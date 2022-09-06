@@ -1,0 +1,24 @@
+<ehcache:config
+    xmlns:ehcache="http://www.ehcache.org/v3"
+    xmlns:jcache="http://www.ehcache.org/v3/jsr107">
+
+
+  <!--
+    A <cache> that uses the template above by referencing the cache-template's name in the uses-template attribute:
+  -->
+  <ehcache:cache alias="customerCache" >
+    <!--
+      Adds the key and value type configuration
+    -->
+    <ehcache:key-type>java.lang.Long</ehcache:key-type>
+    <ehcache:value-type>java.lang.String</ehcache:value-type>
+
+    <!--
+      Overwrites the capacity limit set by the template to a new value
+    -->
+    <ehcache:heap unit="entries">200</ehcache:heap>
+	
+	
+  </ehcache:cache>
+
+</ehcache:config>

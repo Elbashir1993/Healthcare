@@ -1,0 +1,158 @@
+
+
+
+
+
+DROP TABLE IF EXISTS `duration`;
+DROP TABLE IF EXISTS `Saturday`;
+DROP TABLE IF EXISTS `schedule`;
+DROP TABLE IF EXISTS `previous_jobs`;
+DROP TABLE IF EXISTS `charges`;
+DROP TABLE IF EXISTS `certificate`;
+DROP TABLE IF EXISTS `Staff`;
+
+
+
+
+
+CREATE TABLE Staff (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    name VARCHAR (100) NOT NULL,
+    work_location VARCHAR (100) NOT NULL,
+    phone VARCHAR (100) NOT NULL,
+    email VARCHAR (100),
+    desc TEXT,
+    current_job VARCHAR (100),
+ 
+    PRIMARY KEY (id),
+)
+
+
+CREATE TABLE certificate (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    name VARCHAR (100) NOT NULL,
+    file VARCHAR (100) NOT NULL,
+    staff_id INT (10),
+    PRIMARY KEY (`id),
+  
+)
+
+CREATE TABLE charges (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    physical INT (10) NOT NULL,
+    online INT (10) NOT NULL,
+    staff_id INT (10),
+    PRIMARY KEY (id)
+)
+
+
+CREATE TABLE previous_jobs (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    position VARCHAR (100) NOT NULL,
+    duration VARCHAR (100),
+    organization VARCHAR (100),
+    staff_id INT (10),
+    PRIMARY KEY (`id`)
+)
+
+CREATE TABLE duration (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    start DATETIME,
+    end DATETIME,
+    previous_job_id INT (10),
+    PRIMARY KEY (id)
+)
+
+
+
+
+CREATE TABLE Saturday (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    session1 BIT,
+    session2 BIT,
+    session3 BIT,
+    session4 BIT,
+    session5 BIT,
+    session6 BIT,
+    staff_id INT (10),
+    PRIMARY KEY (id)
+)
+
+
+CREATE TABLE Sunday (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    session1 BIT,
+    session2 BIT,
+    session3 BIT,
+    session4 BIT,
+    session5 BIT,
+    session6 BIT,
+    staff_id INT (10),
+    PRIMARY KEY (id)
+)
+
+
+CREATE TABLE Monday (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    session1 BIT,
+    session2 BIT,
+    session3 BIT,
+    session4 BIT,
+    session5 BIT,
+    session6 BIT,
+    staff_id INT (10),
+    PRIMARY KEY (id)
+)
+
+CREATE TABLE Tuesday (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    session1 BIT,
+    session2 BIT,
+    session3 BIT,
+    session4 BIT,
+    session5 BIT,
+    session6 BIT,
+    staff_id INT (10),
+    PRIMARY KEY (id)
+)
+
+
+CREATE TABLE Wednesday (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    session1 BIT,
+    session2 BIT,
+    session3 BIT,
+    session4 BIT,
+    session5 BIT,
+    session6 BIT,
+    staff_id INT (10),
+    PRIMARY KEY (id)
+)
+
+
+CREATE TABLE Thrusday (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    session1 BIT,
+    session2 BIT,
+    session3 BIT,
+    session4 BIT,
+    session5 BIT,
+    session6 BIT,
+    staff_id INT (10),
+    PRIMARY KEY (id)
+)
+
+
+CREATE TABLE Friday (
+    id INT (10) NOT NULL AUTO_INCREMENT,
+    session1 BIT,
+    session2 BIT,
+    session3 BIT,
+    session4 BIT,
+    session5 BIT,
+    session6 BIT,
+    staff_id INT (10),
+    PRIMARY KEY (id)
+)
+
+
