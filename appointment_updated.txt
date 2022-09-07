@@ -4,12 +4,7 @@
 
 
 DROP TABLE IF EXISTS `duration`;
-DROP TABLE IF EXISTS `Saturday`;
-DROP TABLE IF EXISTS `schedule`;
-DROP TABLE IF EXISTS `previous_jobs`;
-DROP TABLE IF EXISTS `charges`;
-DROP TABLE IF EXISTS `certificate`;
-DROP TABLE IF EXISTS `Staff`;
+
 
 
 
