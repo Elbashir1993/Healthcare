@@ -71,6 +71,7 @@ jobs:
         REPOSITORY: healthrepo
         IMAGE_TAG: ${{ github.sha }}
       run: |
+        docker login --username AWS --password-stdin public.ecr.aws/c6c3q3v1
         docker build -t healthrepo WebsiteData/
         docker tag healthrepo:latest public.ecr.aws/c6c3q3v1/healthrepo:latest
         docker push public.ecr.aws/c6c3q3v1/healthrepo:latest
