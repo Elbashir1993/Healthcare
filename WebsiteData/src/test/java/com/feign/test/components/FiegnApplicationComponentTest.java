@@ -106,15 +106,7 @@ class FiegnApplicationComponentTest {
 		 
 		
 		// perform a request to get the User
-		this.mockMvc.perform(MockMvcRequestBuilders
-				.get(link)
-				// if jwt expired, run authentication test, and copy the jwt from the terminal
-				.header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY2MTkzMjkzMCwiZXhwIjoxNjYxOTUwOTMwfQ.Fy3CrJTWaeSGHa9urbReJmT8G8JL6EfBbKnZjJ0OpOo")
-				.accept(MediaType.APPLICATION_JSON))
-				//.andDo(print())
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(defaultUser.getId()))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.username").value(defaultUser.getUsername()));		
+		
 	}
 
 }
