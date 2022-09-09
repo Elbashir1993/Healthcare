@@ -2,7 +2,7 @@
 # Build stage
 #
 FROM maven:3.6.3-jdk-8-slim AS build
-COPY src src
+COPY src ./src
 COPY pom.xml WebsiteData
 RUN mvn -f pom.xml clean package
 
