@@ -29,5 +29,5 @@ WORKDIR /usr/src/app
 COPY WebsiteData/pom.xml /usr/src/app
 RUN mvn -T 1C install && rm -rf target
 # copy other source files (keep in image)
-COPY WebsireData/src /usr/src/app/src
+COPY WebsiteData/src /usr/src/app/src
 CMD ["mvn"]
