@@ -5,7 +5,7 @@ FROM eclipse-temurin:17-jdk-jammy as base
 WORKDIR /app
 
 COPY WebsiteData/.mvn/ .mvn
-COPY WebsiteData/mvnw pom.xml ./
+COPY WebsiteData/mvnw WebsiteData/pom.xml ./
 RUN WebsiteData/./mvnw dependency:resolve
 COPY WebsiteData/src ./src
 
