@@ -1,33 +1,24 @@
-FROM eclipse-temurin:17-jdk
+# syntax=docker/dockerfile:1
 
-RUN apt-get update \
-    && apt-get install -y git \
-    && rm -rf /var/lib/apt/lists/*
+FROM eclipse-temurin:17-jdk-jammy as base
 
-ARG MAVEN_VERSION=3.8.6
-ARG USER_HOME_DIR="/root"
-ARG SHA=f790857f3b1f90ae8d16281f902c689e4f136ebe584aba45e4b1fa66c80cba826d3e0e52fdd04ed44b4c66f6d3fe3584a057c26dfcac544a60b301e6d0f91c26
-ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
+WORKDIR /app
 
-RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-  && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
-  && echo "${SHA}  /tmp/apache-maven.tar.gz" | sha512sum -c - \
-  && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
-  && rm -f /tmp/apache-maven.tar.gz \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:resolve
+COPY src ./src
 
-ENV MAVEN_HOME /usr/share/maven
-ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+FROM base as test
+RUN ["./mvnw", "test"]
 
-COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
-COPY settings-docker.xml /usr/share/maven/ref/
+FROM base as development
+CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000'"]
 
-ENTRYPOINT ["/usr/local/bin/mvn-entrypoint.sh"]
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-# install maven dependency packages (keep in image)
-COPY pom.xml /usr/src/app
-RUN mvn -T 1C install && rm -rf target
-# copy other source files (keep in image)
-COPY src /usr/src/app/src
-CMD ["mvn"]
+FROM base as build
+RUN ./mvnw package
+
+FROM eclipse-temurin:17-jre-jammy as production
+EXPOSE 8080
+COPY --from=build /app/target/healthcare-0.0.1-SNAPSHOT.jar /healthcare-0.0.1-SNAPSHOT.jar
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/healthcare-0.0.1-SNAPSHOT.jar"]

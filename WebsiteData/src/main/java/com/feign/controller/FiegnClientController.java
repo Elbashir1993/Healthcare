@@ -42,6 +42,7 @@ import com.feign.domain.ScheduleUpdateRequestMapper;
 import com.feign.domain.Staff;
 import com.feign.domain.StaffInfo;
 import com.feign.domain.User;
+import com.feign.repo.UserRepo;
 import com.feign.service.ServiceForTesting;
 import com.feign.util.JwtTokenUtil;
 
@@ -56,6 +57,8 @@ import io.github.resilience4j.retry.annotation.Retry;
 @CrossOrigin
 @RequestMapping("/staffs")
 public class FiegnClientController {
+	@Autowired
+	UserRepo userRepo;
 	@Autowired
 	private FiegnClientDomain fc;
 	@Autowired
@@ -124,9 +127,10 @@ public class FiegnClientController {
 	}
 	
 	
-	@GetMapping("/admin")
-	public String getAdmin() {
-		return "this is accessed by admins only";
+	@GetMapping("/admin/{username}")
+	public User getAdmin(@PathVariable(value = "username") String username) {
+		System.out.println("debuging");
+		return userRepo.findUserByUsername(username);
 	}
 	
 	// test proxy 
