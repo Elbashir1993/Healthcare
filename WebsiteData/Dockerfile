@@ -6,14 +6,14 @@ WORKDIR /app
 
 COPY WebsiteData/.mvn/ .mvn
 COPY WebsiteData/mvnw WebsiteData/pom.xml ./
-RUN ./mvnw dependency:resolve
+RUN WebsiteData/mvnw dependency:resolve
 COPY WebsiteData/src ./src
 
 FROM base as test
 RUN ["./mvnw", "test"]
 
 FROM base as development
-CMD ["WebsiteData/./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000'"]
+CMD ["WebsiteData/mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000'"]
 
 FROM base as build
 RUN ./mvnw package
