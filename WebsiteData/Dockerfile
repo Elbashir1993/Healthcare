@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY WebsiteData/.mvn/ .mvn
 COPY WebsiteData/mvnw WebsiteData/pom.xml ./
-RUN ./mvnw dependency:resolve
+RUN chmod +x ./mvnw dependency:resolve
 COPY WebsiteData/src ./src
 
 FROM base as test
